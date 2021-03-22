@@ -14,7 +14,7 @@ const httpServer: Server = http.createServer((req:IncomingMessage,res:ServerResp
         case undefined:
             res.setHeader('Content-disposition','attachment; filename=weex.xlsx');
             res.setHeader('Content-type','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
-            res.end('Weex Input Model File.');
+            res.end('NOME_COMPLETO,EMAIL,PASSWORD,DATA_NASCIMENTO,EMPRESA,CARGO,ENDERECO,NUMERO,COMPLEMENTO,CEP,BAIRRO,CIDADE,ESTADO,SEXO');
             break;
         default:
             const fileData = fs.readFileSync(join(__dirname,`../files/${query.file}`));
