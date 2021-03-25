@@ -2,7 +2,7 @@ FROM node:lts-alpine3.10
 
 RUN apk add --no-cache tini
 
-EXPOSE 3001
+EXPOSE 5050
 
 WORKDIR /src/app
 

@@ -1,12 +1,16 @@
 import fs from 'fs';
-import http, { IncomingMessage, Server, ServerResponse } from 'http';
+import https from 'https';
 import url from 'url';
 import { config } from 'dotenv';
 import { join } from 'path';
-
+import { IncomingMessage, ServerResponse } from 'http';
+const cert = {
+    key: fs.readFileSync(join(__dirname,'../cert/server.key')),
+    cert: fs.readFileSync(join(__dirname,'../cert/server.cert'))
+}
 config({path:join(__dirname,'../.env')});
 
-const httpServer: Server = http.createServer((req:IncomingMessage,res:ServerResponse) => {
+const httpsServer = https.createServer(cert,(req: IncomingMessage,res: ServerResponse) => {
     
     const query = url.parse(req.url!,true).query;
 
@@ -37,7 +41,7 @@ interface ICallbackProps{
 };
 
 const serverCallback:ICallbackProps = (err,res) => {
-    !err ? console.log(`Server Listening on ${process.env.PORT}`) : console.error(err);
+    !err ? console.log(`Server Listening on ${process.env.HTTPS_PORT}`) : console.error(err);
 };
 
-httpServer.listen(process.env.PORT,serverCallback);
+httpsServer.listen(process.env.HTTPS_PORT,serverCallback);
