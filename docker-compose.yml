@@ -7,7 +7,7 @@ services:
       dockerfile: Dockerfile
     image: weex-ftp
     container_name: weex-ftp  
-    expose: 
+    ports: 
       - "5050:5050"
     env_file: ./.env
     restart: unless-stopped

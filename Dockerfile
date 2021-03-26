@@ -8,7 +8,7 @@ WORKDIR /src/app
 
 COPY package*.json ./
 
-RUN npm install --silent && npm clean cache --force
+RUN npm install --silent && npm cache clean --force
 
 COPY . ./
 

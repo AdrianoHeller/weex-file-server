@@ -16,14 +16,38 @@ const httpsServer = https.createServer(cert,(req: IncomingMessage,res: ServerRes
 
     switch(query.file){
         case undefined:
-            res.setHeader('Content-disposition','attachment; filename=weex.xlsx');
-            res.setHeader('Content-type','application/vnd.openxmlformats-officedocument.spreadsheetml.sheet');
+            const headerCase = {
+            'Access-Control-Allow-Origin':'*',
+            'Access-Control-Allow-Methods':'POST,OPTIONS',
+            'Access-Control-Max-Age': 2592000,
+            'Content-disposition':'attachment; filename=weex.xlsx',
+            'Content-type':'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        };
+        if(req.method === 'OPTIONS'){
+            res.writeHead(204,headerCase);
+            res.end();
+            return;
+        };
+            res.writeHead(200,headerCase);
             res.end('NOME_COMPLETO,EMAIL,PASSWORD,DATA_NASCIMENTO,EMPRESA,CARGO,ENDERECO,NUMERO,COMPLEMENTO,CEP,BAIRRO,CIDADE,ESTADO,SEXO');
             break;
         default:
+            case undefined:
+            const headerDef = {
+            'Access-Control-Allow-Origin':'*',
+            'Access-Control-Allow-Methods':'POST,OPTIONS',
+            'Access-Control-Max-Age': 2592000,
+            'Content-disposition':'attachment; filename=weex.xlsx',
+            'Content-type':'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        };
+        if(req.method === 'OPTIONS'){
+            res.writeHead(204,headerDef);
+            res.end();
+            return;
+        };
             const fileData = fs.readFileSync(join(__dirname,`../files/${query.file}`));
                 if(fileData){
-                    res.setHeader('Content-disposition','attachment; filename=weex.xlsx');
+                    res.writeHead(200,headerDef);
                     res.end(fileData);
                     break;    
                 }else{
