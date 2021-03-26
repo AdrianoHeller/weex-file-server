@@ -18,12 +18,12 @@ FROM prod as dev
 
 ENV NODE_ENV=development
 
-RUN npm install --only=development && npm cache clean --force
+RUN npm install --only=development
 
-CMD ["nodemon","build/index.js","--","inspect=0.0.0.0:5050"]
+CMD ["../node_modules/nodemon/bin/nodemon.js","build/index.js","--inspect=0.0.0.0:5050"]
 
 FROM dev as test
 
 ENV NODE_ENV=development
 
-CMD ["npm","run","test"]
+CMD ["npm","test"]
