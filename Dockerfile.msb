@@ -8,7 +8,7 @@ WORKDIR /src/app
 
 COPY package*.json ./
 
-RUN npm install --silent && npm cache clean --force
+RUN npm install --only=production && npm cache clean --force
 
 COPY . ./
 
@@ -18,7 +18,7 @@ FROM prod as dev
 
 ENV NODE_ENV=development
 
-RUN npm install --save-dev nodemon 
+RUN npm install --only=development && npm cache clean --force
 
 CMD ["nodemon","build/index.js","--","inspect=0.0.0.0:5050"]
 
