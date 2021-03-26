@@ -1,0 +1,29 @@
+FROM node:10-slim as prod
+
+ENV NODE_ENV=production
+
+EXPOSE 5050
+
+WORKDIR /src/app
+
+COPY package*.json ./
+
+RUN npm install --silent && npm cache clean --force
+
+COPY . ./
+
+CMD ["node","build/index.js"]
+
+FROM prod as dev
+
+ENV NODE_ENV=development
+
+RUN npm install --save-dev nodemon 
+
+CMD ["nodemon","build/index.js","--","inspect=0.0.0.0:5050"]
+
+FROM dev as test
+
+ENV NODE_ENV=development
+
+CMD ["npm","run","test"]
