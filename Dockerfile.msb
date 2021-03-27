@@ -1,4 +1,4 @@
-FROM node:10-slim as prod
+FROM node:lts-alpine3.10 as prod
 
 ENV NODE_ENV=production
 
