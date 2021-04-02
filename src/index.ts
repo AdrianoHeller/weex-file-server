@@ -51,8 +51,7 @@ const httpServer = http.createServer((req: IncomingMessage,res: ServerResponse) 
                     res.writeHead(400,{'Content-Type':'text/html'});
                     res.end('Não há arquivo disponível');
                     break;    
-                }
-    
+                }    
     };
 
 });
