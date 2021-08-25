@@ -1,14 +1,11 @@
 version: '3.1'
 
 services:
-  weex-ftp:
-    build:
-      context: .
-      dockerfile: Dockerfile
-    image: weex-ftp
-    container_name: weex-ftp  
-    ports: 
+  fileserver:
+    image: oadrianoo/weex-backend-fileserver
+    build: .
+    ports:
       - "5050:5050"
     env_file: ./.env
-    restart: unless-stopped
+    restart: always 
  
